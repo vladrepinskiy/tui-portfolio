@@ -29,7 +29,7 @@ export const Hero = ({ entryText, logo = DEFAULT_LOGO, typingSpeed = 40 }) => {
           justifyContent="center"
           alignItems="center"
         >
-          <Typed speed={typingSpeed}>{entryText}</Typed>
+          <Text>{entryText}</Text>
         </HeroTextPanelBox>
         <HeroLogoPanelBox flexDirection="column" flexShrink={0}>
           {logoLines.map((line, i) => (

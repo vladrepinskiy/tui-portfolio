@@ -7,8 +7,9 @@ export const HeaderBar = ({ links }) => {
     <HeaderBarRow flexDirection="row" marginBottom={1} paddingX={1}>
       <HeaderLinksBox paddingLeft={2} flexDirection="row" gap={2}>
         {links.map((link, i) => (
-          <HeaderLinkText key={link.name ?? i} dimColor>
-            {link.name}
+          <HeaderLinkText key={link.route ?? link.name ?? i} dimColor>
+            {link.key}
+            {link.name ? ` ${link.name}` : ""}
           </HeaderLinkText>
         ))}
       </HeaderLinksBox>
