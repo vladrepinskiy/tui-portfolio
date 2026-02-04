@@ -37,7 +37,7 @@ export const Hero = ({
           flexDirection="column"
           width={44}
           justifyContent="center"
-          alignItems="center"
+          alignItems="flex-start"
         >
           <Typed speed={typingSpeed}>{entryText}</Typed>
         </HeroTextPanelBox>
@@ -70,7 +70,7 @@ const HeroTextPanelBox = styled(Box)`
   flex-direction: column;
   width: 44px;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 `;
 
 const HeroLogoPanelBox = styled(Box)`

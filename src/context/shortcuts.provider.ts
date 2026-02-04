@@ -16,7 +16,6 @@ const quit = () => process.exit(0);
 
 const DEFAULT_SHORTCUTS: Shortcut[] = [
   { key: "q", label: "Quit", handler: quit },
-  { key: "escape", label: "Quit", handler: quit },
 ];
 
 export type ShortcutsContextValue = {
