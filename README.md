@@ -1,4 +1,4 @@
-# tui-portfolio
+# A TUI Portfolio
 
 TUI portfolio built with [Ink](https://github.com/vadimdemedes/ink) (React for the terminal) + TypeScript.
 
