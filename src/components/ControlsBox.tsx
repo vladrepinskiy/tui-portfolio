@@ -2,7 +2,17 @@ import { styled } from "goober";
 import { Box, Text } from "ink";
 import React from "react";
 
-export const ControlsBox = ({ version, actions }) => {
+type ControlAction = {
+  key: string;
+  label?: string;
+};
+
+type ControlsBoxProps = {
+  version: string;
+  actions: ControlAction[];
+};
+
+export const ControlsBox = ({ version, actions }: ControlsBoxProps) => {
   return (
     <ControlsBoxRow flexDirection="row" marginTop={1} paddingX={1}>
       <ControlsVersionBox paddingLeft={2}>

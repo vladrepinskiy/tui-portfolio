@@ -8,7 +8,7 @@
     "tui-portfolio": "./dist/cli.js"
   },
   "scripts": {
-    "build": "esbuild src/cli.jsx --bundle --platform=node --format=esm --outfile=dist/cli.js --external:ink --external:react",
+    "build": "esbuild src/cli.tsx --bundle --platform=node --format=esm --outfile=dist/cli.js --external:ink --external:react",
     "start": "node dist/cli.js",
     "dev": "npm run build && node dist/cli.js"
   },
@@ -26,6 +26,7 @@
     "react": "^18.2.0"
   },
   "devDependencies": {
+    "@types/node": "^25.2.0",
     "@types/react": "^19.2.11",
     "esbuild": "^0.24.0"
   }

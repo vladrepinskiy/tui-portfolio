@@ -2,12 +2,12 @@ import { styled } from "goober";
 import { Text } from "ink";
 import React, { useEffect, useState } from "react";
 
-/**
- * Types out text character by character.
- * @param {string} children - Text to type out (use as children)
- * @param {number} speed - Ms per character (default 40 for a fast type)
- */
-export const Typed = ({ children, speed = 40 }) => {
+type TypedProps = {
+  children: React.ReactNode;
+  speed?: number;
+};
+
+export const Typed = ({ children, speed = 40 }: TypedProps) => {
   const text = typeof children === "string" ? children : String(children);
   const [visibleLength, setVisibleLength] = useState(0);
 

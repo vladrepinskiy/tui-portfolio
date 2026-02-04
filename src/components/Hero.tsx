@@ -1,10 +1,10 @@
 import { styled } from "goober";
 import { Box, Text } from "ink";
 import React from "react";
-import { DEFAULT_LOGO } from "../constants/ascii.constants.ts";
-import { Typed } from "./Typed.jsx";
+import { DEFAULT_LOGO } from "../constants/ascii.constants";
+import { Typed } from "./Typed";
 
-const normalizeLogoLines = (lines) => {
+const normalizeLogoLines = (lines: string | string[]): string[] => {
   const normalized = Array.isArray(lines)
     ? lines
     : String(lines).trim().split("\n");
@@ -12,7 +12,17 @@ const normalizeLogoLines = (lines) => {
   return normalized.map((line) => line.slice(0, width).padEnd(width, " "));
 };
 
-export const Hero = ({ entryText, logo = DEFAULT_LOGO, typingSpeed = 40 }) => {
+type HeroProps = {
+  entryText: string;
+  logo?: string | string[];
+  typingSpeed?: number;
+};
+
+export const Hero = ({
+  entryText,
+  logo = DEFAULT_LOGO,
+  typingSpeed = 40,
+}: HeroProps) => {
   const logoLines = normalizeLogoLines(logo);
 
   return (
@@ -29,7 +39,7 @@ export const Hero = ({ entryText, logo = DEFAULT_LOGO, typingSpeed = 40 }) => {
           justifyContent="center"
           alignItems="center"
         >
-          <Text>{entryText}</Text>
+          <Typed speed={typingSpeed}>{entryText}</Typed>
         </HeroTextPanelBox>
         <HeroLogoPanelBox flexDirection="column" flexShrink={0}>
           {logoLines.map((line, i) => (

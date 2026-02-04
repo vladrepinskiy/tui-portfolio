@@ -2,7 +2,17 @@ import { styled } from "goober";
 import { Box, Text } from "ink";
 import React from "react";
 
-export const HeaderBar = ({ links }) => {
+type HeaderLink = {
+  name: string;
+  key: string;
+  route: string;
+};
+
+type HeaderBarProps = {
+  links: HeaderLink[];
+};
+
+export const HeaderBar = ({ links }: HeaderBarProps) => {
   return (
     <HeaderBarRow flexDirection="row" marginBottom={1} paddingX={1}>
       <HeaderLinksBox paddingLeft={2} flexDirection="row" gap={2}>

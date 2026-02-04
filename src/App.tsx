@@ -1,14 +1,17 @@
 import { styled } from "goober";
-import { Box, useInput, useStdout } from "ink";
+import { Box, useStdout } from "ink";
 import React from "react";
 import pkg from "../package.json" with { type: "json" };
-import { ControlsBox } from "./components/ControlsBox.jsx";
-import { HeaderBar } from "./components/HeaderBar.jsx";
-import { Router } from "./context/Router.jsx";
-import { useRoute } from "./hooks/useRoute.js";
+import { ControlsBox } from "./components/ControlsBox";
+import { HeaderBar } from "./components/HeaderBar";
+import { Router } from "./context/route.provider";
+import { ShortcutsProvider } from "./context/shortcuts.provider";
+import { useRoute } from "./hooks/useRoute";
+import { useShortcuts } from "./hooks/useShortcuts";
 
 const AppContent = () => {
-  const { route, links, actions, getPage } = useRoute();
+  const { route, links, getPage } = useRoute();
+  const { shortcuts } = useShortcuts();
   const { stdout } = useStdout();
   const terminalRows = stdout?.rows ?? 24;
 
@@ -26,22 +29,18 @@ const AppContent = () => {
       >
         {getPage(route)}
       </MainContentArea>
-      <ControlsBox version={pkg.version} actions={actions} />
+      <ControlsBox version={pkg.version} actions={shortcuts} />
     </AppRootBox>
   );
 };
 
 const App = () => {
-  useInput((input, key) => {
-    if (key.escape || input === "q") {
-      process.exit(0);
-    }
-  });
-
   return (
-    <Router>
-      <AppContent />
-    </Router>
+    <ShortcutsProvider>
+      <Router>
+        <AppContent />
+      </Router>
+    </ShortcutsProvider>
   );
 };
 
