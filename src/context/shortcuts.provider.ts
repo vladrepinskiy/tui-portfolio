@@ -13,9 +13,11 @@ export type ShortcutDisplay = {
 };
 
 const quit = () => process.exit(0);
+const switchTheme = () => { }; // TODO [VR]: add theme provider and switching
 
 const DEFAULT_SHORTCUTS: Shortcut[] = [
   { key: "q", label: "Quit", handler: quit },
+  { key: "t", label: "Theme", handler: switchTheme },
 ];
 
 export type ShortcutsContextValue = {
