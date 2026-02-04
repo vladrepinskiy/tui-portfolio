@@ -12,10 +12,12 @@ type ControlsBoxProps = {
   actions: ControlAction[];
 };
 
+const SIDE_WIDTH = 12;
+
 export const ControlsBox = ({ version, actions }: ControlsBoxProps) => {
   return (
     <ControlsBoxRow flexDirection="row" marginTop={1} paddingX={1}>
-      <ControlsVersionBox paddingLeft={2}>
+      <ControlsVersionBox width={SIDE_WIDTH} paddingLeft={2}>
         <ControlsVersionText dimColor>v{version}</ControlsVersionText>
       </ControlsVersionBox>
       <ControlsActionsBox
@@ -32,6 +34,7 @@ export const ControlsBox = ({ version, actions }: ControlsBoxProps) => {
           </ControlsActionText>
         ))}
       </ControlsActionsBox>
+      <ControlsSpacer width={SIDE_WIDTH} />
     </ControlsBoxRow>
   );
 };
@@ -42,7 +45,11 @@ const ControlsBoxRow = styled(Box)`
 `;
 
 const ControlsVersionBox = styled(Box)`
-  /* version left-aligned with padding */
+  /* version left-aligned with fixed width for symmetric center */
+`;
+
+const ControlsSpacer = styled(Box)`
+  /* same width as left side so actions are truly centered */
 `;
 
 const ControlsVersionText = styled(Text)`
