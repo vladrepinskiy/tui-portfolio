@@ -18,7 +18,6 @@ const ROUTE_PAGES: Record<string, () => React.ReactNode> = {
   [ROUTES.home]: () =>
     React.createElement(Hero, {
       entryText: ENTRY_TEXT,
-      typingSpeed: 35,
     }),
   [ROUTES.about]: () => React.createElement(AboutPage, {}),
 };

@@ -4,20 +4,22 @@ import React, { useEffect, useState } from "react";
 
 type TypedProps = {
   children: React.ReactNode;
-  speed?: number;
+  delay?: number;
 };
 
-export const Typed = ({ children, speed = 40 }: TypedProps) => {
+export const Typed = ({ children, delay = 30 }: TypedProps) => {
   const text = typeof children === "string" ? children : String(children);
   const [visibleLength, setVisibleLength] = useState(0);
 
   useEffect(() => {
     if (visibleLength >= text.length) return;
+
     const id = setTimeout(() => {
       setVisibleLength((n) => Math.min(n + 1, text.length));
-    }, speed);
+    }, delay);
+
     return () => clearTimeout(id);
-  }, [text.length, speed, visibleLength]);
+  }, [text.length, delay, visibleLength]);
 
   return <TypedOutputText>{text.slice(0, visibleLength)}</TypedOutputText>;
 };

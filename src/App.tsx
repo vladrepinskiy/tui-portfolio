@@ -1,6 +1,5 @@
 import { styled } from "goober";
 import { Box, useStdout } from "ink";
-import React from "react";
 import pkg from "../package.json" with { type: "json" };
 import { ControlsBox } from "./components/ControlsBox";
 import { HeaderBar } from "./components/HeaderBar";
@@ -21,7 +20,7 @@ const AppContent = () => {
       padding={1}
       height={terminalRows}
     >
-      <HeaderBar links={links} />
+      <HeaderBar links={links} activeRoute={route} />
       <MainContentArea
         flexGrow={1}
         flexDirection="column"

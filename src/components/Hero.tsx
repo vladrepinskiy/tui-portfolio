@@ -1,6 +1,5 @@
 import { styled } from "goober";
 import { Box, Text } from "ink";
-import React from "react";
 import { DEFAULT_LOGO } from "../constants/ascii.constants";
 import { Typed } from "./Typed";
 
@@ -15,14 +14,10 @@ const normalizeLogoLines = (lines: string | string[]): string[] => {
 type HeroProps = {
   entryText: string;
   logo?: string | string[];
-  typingSpeed?: number;
 };
 
-export const Hero = ({
-  entryText,
-  logo = DEFAULT_LOGO,
-  typingSpeed = 40,
-}: HeroProps) => {
+export const Hero = ({ entryText, logo = DEFAULT_LOGO }: HeroProps) => {
+  const typingDelay = 10;
   const logoLines = normalizeLogoLines(logo);
 
   return (
@@ -38,8 +33,9 @@ export const Hero = ({
           width={44}
           justifyContent="center"
           alignItems="flex-start"
+          padding={1}
         >
-          <Typed speed={typingSpeed}>{entryText}</Typed>
+          <Typed delay={typingDelay}>{entryText}</Typed>
         </HeroTextPanelBox>
         <HeroLogoPanelBox flexDirection="column" flexShrink={0}>
           {logoLines.map((line, i) => (
@@ -71,6 +67,7 @@ const HeroTextPanelBox = styled(Box)`
   width: 44px;
   justify-content: center;
   align-items: flex-start;
+  padding: 1;
 `;
 
 const HeroLogoPanelBox = styled(Box)`
