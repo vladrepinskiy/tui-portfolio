@@ -6,11 +6,9 @@ import { HeaderBar } from "./components/HeaderBar";
 import { Router } from "./context/route.provider";
 import { ShortcutsProvider } from "./context/shortcuts.provider";
 import { useRoute } from "./hooks/useRoute";
-import { useShortcuts } from "./hooks/useShortcuts";
 
 const AppContent = () => {
   const { route, links, getPage } = useRoute();
-  const { shortcuts } = useShortcuts();
   const { stdout } = useStdout();
   const terminalRows = stdout?.rows ?? 24;
 
@@ -28,7 +26,7 @@ const AppContent = () => {
       >
         {getPage(route)}
       </MainContentArea>
-      <ControlsBox version={pkg.version} actions={shortcuts} />
+      <ControlsBox version={pkg.version} />
     </AppRootBox>
   );
 };

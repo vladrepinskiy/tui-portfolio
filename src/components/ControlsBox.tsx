@@ -1,38 +1,34 @@
 import { styled } from "goober";
 import { Box, Text } from "ink";
-
-type ControlAction = {
-  key: string;
-  label?: string;
-};
+import { useShortcuts } from "../hooks/useShortcuts";
 
 type ControlsBoxProps = {
   version: string;
-  actions: ControlAction[];
 };
 
 const SIDE_WIDTH = 12;
 
-export const ControlsBox = ({ version, actions }: ControlsBoxProps) => {
+export const ControlsBox = ({ version }: ControlsBoxProps) => {
+  const { shortcuts } = useShortcuts();
   return (
     <ControlsBoxRow flexDirection="row" marginTop={1} paddingX={1}>
       <ControlsVersionBox width={SIDE_WIDTH} paddingLeft={2}>
         <ControlsVersionText dimColor>v{version}</ControlsVersionText>
       </ControlsVersionBox>
-      <ControlsActionsBox
+      <ControlsShortcutsBox
         flexGrow={1}
         flexDirection="row"
         justifyContent="center"
         alignItems="center"
         gap={2}
       >
-        {actions.map((action, i) => (
-          <ControlsActionText key={action.key ?? i} dimColor>
-            {action.key}
-            {action.label ? ` ${action.label}` : ""}
-          </ControlsActionText>
+        {shortcuts.map((shortcut, i) => (
+          <ControlsShortcutText key={shortcut.key ?? i} dimColor>
+            {shortcut.key}
+            {shortcut.label ? ` ${shortcut.label}` : ""}
+          </ControlsShortcutText>
         ))}
-      </ControlsActionsBox>
+      </ControlsShortcutsBox>
       <ControlsSpacer width={SIDE_WIDTH} />
     </ControlsBoxRow>
   );
@@ -48,14 +44,14 @@ const ControlsVersionBox = styled(Box)`
 `;
 
 const ControlsSpacer = styled(Box)`
-  /* same width as left side so actions are truly centered */
+  /* same width as left side so shortcuts are truly centered */
 `;
 
 const ControlsVersionText = styled(Text)`
   /* dimColor via prop */
 `;
 
-const ControlsActionsBox = styled(Box)`
+const ControlsShortcutsBox = styled(Box)`
   flex-grow: 1;
   flex-direction: row;
   justify-content: center;
@@ -63,6 +59,6 @@ const ControlsActionsBox = styled(Box)`
   gap: 2;
 `;
 
-const ControlsActionText = styled(Text)`
+const ControlsShortcutText = styled(Text)`
   /* dimColor via prop */
 `;
