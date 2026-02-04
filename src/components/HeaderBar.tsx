@@ -34,7 +34,7 @@ export const HeaderBar = ({ links, activeRoute }: HeaderBarProps) => {
         })}
       </HeaderLinksBox>
       <HeaderWipBox flexGrow={1} flexDirection="row" justifyContent="flex-end">
-        <RunningLine width={10} text="Work In Progress" stepDelay={140} />
+        <RunningLine width={15} text="Work In Progress" stepDelay={140} />
       </HeaderWipBox>
     </HeaderBarRow>
   );

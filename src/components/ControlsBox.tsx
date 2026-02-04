@@ -1,6 +1,5 @@
 import { styled } from "goober";
 import { Box, Text } from "ink";
-import React from "react";
 
 type ControlAction = {
   key: string;

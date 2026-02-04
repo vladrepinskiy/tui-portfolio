@@ -29,17 +29,18 @@ export const RunningLine = ({
   }, [content, width, stepDelay]);
 
   const loop = content + content;
+  const innerWidth = Math.max(0, width - 4); // reserve 4 chars for "[ " and " ]"
   const visible =
-    content.length <= width
-      ? content.padEnd(width, " ")
+    content.length <= innerWidth
+      ? content.slice(0, innerWidth).padEnd(innerWidth, " ")
       : loop.slice(
           position % content.length,
-          (position % content.length) + width
+          (position % content.length) + innerWidth
         );
 
   return (
     <RunningLineBox width={width}>
-      <RunningLineText>{visible}</RunningLineText>
+      <RunningLineText>[ {visible} ]</RunningLineText>
     </RunningLineBox>
   );
 };
