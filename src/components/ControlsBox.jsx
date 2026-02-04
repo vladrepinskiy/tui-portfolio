@@ -2,30 +2,51 @@ import { styled } from "goober";
 import { Box, Text } from "ink";
 import React from "react";
 
-export const ControlsBox = ({ children }) => {
+export const ControlsBox = ({ version, actions }) => {
   return (
-    <ControlsBoxWrapper
-      flexDirection="column"
-      justifyContent="center"
-      alignItems="center"
-      borderStyle="round"
-      borderColor="gray"
-      paddingX={2}
-      paddingY={1}
-      marginTop={1}
-    >
-      <ControlsBoxText dimColor>{children}</ControlsBoxText>
-    </ControlsBoxWrapper>
+    <ControlsBoxRow flexDirection="row" marginTop={1} paddingX={1}>
+      <ControlsVersionBox paddingLeft={2}>
+        <ControlsVersionText dimColor>v{version}</ControlsVersionText>
+      </ControlsVersionBox>
+      <ControlsActionsBox
+        flexGrow={1}
+        flexDirection="row"
+        justifyContent="center"
+        alignItems="center"
+        gap={2}
+      >
+        {actions.map((action, i) => (
+          <ControlsActionText key={action.key ?? i} dimColor>
+            {action.key}
+            {action.label ? ` ${action.label}` : ""}
+          </ControlsActionText>
+        ))}
+      </ControlsActionsBox>
+    </ControlsBoxRow>
   );
 };
 
-const ControlsBoxWrapper = styled(Box)`
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+const ControlsBoxRow = styled(Box)`
+  flex-direction: row;
   margin-top: 1;
 `;
 
-const ControlsBoxText = styled(Text)`
+const ControlsVersionBox = styled(Box)`
+  /* version left-aligned with padding */
+`;
+
+const ControlsVersionText = styled(Text)`
+  /* dimColor via prop */
+`;
+
+const ControlsActionsBox = styled(Box)`
+  flex-grow: 1;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 2;
+`;
+
+const ControlsActionText = styled(Text)`
   /* dimColor via prop */
 `;
