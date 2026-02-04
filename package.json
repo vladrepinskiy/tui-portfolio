@@ -1,6 +1,6 @@
 {
   "name": "tui-portfolio",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A TUI portfolio app built with Ink",
   "type": "module",
   "main": "dist/cli.js",
