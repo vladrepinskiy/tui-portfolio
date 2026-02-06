@@ -12,7 +12,8 @@
     "start": "node dist/cli.js",
     "dev": "npm run build && node dist/cli.js",
     "tui": "node src/tui.mjs",
-    "ssh:tui": "node src/ssh-server.mjs"
+    "ssh:tui": "node src/ssh-server.mjs",
+    "postinstall": "node scripts/fix-pty.mjs"
   },
   "keywords": [
     "tui",
