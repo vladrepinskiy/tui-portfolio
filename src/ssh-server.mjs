@@ -128,25 +128,34 @@ const server = new Server({ hostKeys: [hostKey] }, (client) => {
         const cols = ptyInfo.cols || 80;
         const rows = ptyInfo.rows || 24;
 
-        const nodeBin = process.execPath;
         const tuiPath = path.join(projectRoot, "src", "tui.mjs");
-        const args = [tuiPath];
+        const nodeBin = process.execPath;
+        const shellCmd = `exec ${JSON.stringify(nodeBin)} ${JSON.stringify(
+          tuiPath
+        )}`;
+        const spawnEnv = {
+          PATH: process.env.PATH || "/usr/local/bin:/usr/bin:/bin",
+          HOME: process.env.HOME || "",
+          USER: process.env.USER || "nobody",
+          TERM: "xterm-256color",
+          COLORTERM: "truecolor",
+          FORCE_COLOR: "1",
+          PWD: projectRoot,
+        };
 
         try {
-          childPty = pty.spawn(nodeBin, args, {
+          childPty = pty.spawn("/bin/sh", ["-c", shellCmd], {
             name: "xterm-256color",
             cols,
             rows,
             cwd: projectRoot,
-            env: {
-              ...process.env,
-              TERM: "xterm-256color",
-              COLORTERM: "truecolor",
-              FORCE_COLOR: "1",
-            },
+            env: spawnEnv,
           });
         } catch (err) {
-          console.error("[ssh-server] pty.spawn failed:", err.message);
+          console.error("[ssh-server] node-pty spawn failed:", err.message);
+          console.error(
+            "[ssh-server] On macOS, node-pty needs spawn-helper to be executable. Run: npm install"
+          );
           try {
             stream.write("\r\n[Server error: failed to start TUI]\r\n");
           } catch {}
@@ -154,13 +163,17 @@ const server = new Server({ hostKeys: [hostKey] }, (client) => {
           return;
         }
 
-        childPty.onExit(({ exitCode, signal }) => {
+        childPty.onExit(({ exitCode }) => {
           if (exitCode !== 0 && exitCode != null) {
             console.error(
               "[ssh-server] TUI process exited with code",
               exitCode
             );
           }
+          try {
+            stream.end();
+          } catch {}
+          cleanup();
         });
 
         hardTimer = setTimeout(() => {
@@ -188,13 +201,6 @@ const server = new Server({ hostKeys: [hostKey] }, (client) => {
 
         stream.on("close", () => cleanup());
         stream.on("error", () => cleanup());
-
-        childPty.onExit(() => {
-          try {
-            stream.end();
-          } catch {}
-          cleanup();
-        });
       });
     });
 
